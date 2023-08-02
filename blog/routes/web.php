@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProjectController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +19,4 @@ Route::get('/', function () {
 });
 
 Route::resource('posts', PostController::class);
+Route::resource('projects', ProjectController::class);
