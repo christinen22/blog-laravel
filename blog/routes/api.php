@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/posts', 'PostController@index');
 Route::post('/posts', 'PostController@store');
+
+Route::get('/projects', 'ProjectController@index');
+Route::post('/projects', 'ProjectController@store');
