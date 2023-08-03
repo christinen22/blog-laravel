@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\EmailController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,3 +22,7 @@ Route::get('/', function () {
 
 Route::resource('posts', PostController::class);
 Route::resource('projects', ProjectController::class);
+Route::resource('contact', ContactController::class);
+Route::resource('send-email', EmailController::class);
+
+Route::post('/send-email', [EmailController::class, 'sendEmail']);
