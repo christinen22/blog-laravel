@@ -6,6 +6,8 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,18 +20,15 @@ use App\Http\Controllers\ContactController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Protected routes (require authentication)
+Route::middleware('auth:api')->group(function () {
+    Route::post('/posts', [PostController::class, 'store']);
 });
 
-Route::get('/posts', 'PostController@index');
-Route::post('/posts', 'PostController@store');
+// Public routes (accessible without authentication)
 
-Route::get('/projects', 'ProjectController@index');
-Route::post('/projects', 'ProjectController@store');
-
-
-//Route::post('/contact', 'ContactController@submitForm');
-
-
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+Route::get('/posts', [PostController::class, 'index']);
+Route::get('/projects', [ProjectController::class, 'index']);
 Route::post('/send-email', [ContactController::class, 'sendEmail']);

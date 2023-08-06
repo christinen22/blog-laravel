@@ -29,16 +29,21 @@ class PostController extends Controller
     // Method to store a new blog post
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required|max:255',
-            'content' => 'required'
-        ]);
+        try {
+            $this->authorize('create', Post::class);
+            $this->validate($request, [
+                'title' => 'required|max:255',
+                'content' => 'required'
+            ]);
 
-        $post = new Post;
-        $post->title = $request->input('title');
-        $post->content = $request->input('content');
-        $post->save();
+            $post = new Post;
+            $post->title = $request->input('title');
+            $post->content = $request->input('content');
+            $post->save();
 
-        return response()->json(['message' => 'Post created successfully']);
+            return response()->json(['message' => 'Post created successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
     }
 }
