@@ -16,8 +16,12 @@ class PostController extends Controller
 
 
     // Method to show an individual blog post
-    public function show($id)
+    public function show(Post $post)
     {
+        return [
+            "status" => 1,
+            "data" => $post
+        ];
     }
 
     // Method to display the create post form
