@@ -25,6 +25,10 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/posts', [PostController::class, 'store']);
 });
 
+Route::middleware('auth:api')->group(function () {
+    Route::post('/projects', [ProjectController::class, 'store']);
+});
+
 // Public routes (accessible without authentication)
 
 Route::post('/login', [AuthController::class, 'login']);

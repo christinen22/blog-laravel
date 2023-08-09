@@ -10,10 +10,26 @@ class ProjectController extends Controller
     // Method to display a list of projects
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::orderBy('created_at', 'desc')->get();
         return response()->json(['projects' => $projects]);
     }
 
+
+
+    // Method to show an individual blog post
+    public function show(Project $project)
+    {
+        return [
+            "status" => 1,
+            "data" => $project
+        ];
+    }
+
+    // Method to display the create post form
+    public function create()
+    {
+        return view('projects.create');
+    }
     // Method to store a new project
     public function store(Request $request)
     {
