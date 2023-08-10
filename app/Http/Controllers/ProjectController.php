@@ -33,21 +33,26 @@ class ProjectController extends Controller
     // Method to store a new project
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required|max:255',
-            'description' => 'required',
-            'image' => 'required|url',
-            'link' => 'required|url',
-        ]);
+        try {
+            $this->authorize('create', Project::class);
+            $this->validate($request, [
+                'title' => 'required|max:255',
+                'description' => 'required',
+                'image' => 'required|url',
+                'link' => 'required|url',
+            ]);
 
-        $project = new Project;
-        $project->title = $request->input('title');
-        $project->description = $request->input('description');
-        $project->image = $request->input('image');
-        $project->link = $request->input('link');
-        $project->save();
+            $project = new Project;
+            $project->title = $request->input('title');
+            $project->description = $request->input('description');
+            $project->image = $request->input('image');
+            $project->link = $request->input('link');
+            $project->save();
 
-        return response()->json(['message' => 'Project created successfully']);
+            return response()->json(['message' => 'Project created successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
     }
 
     // Method to update an existing project
