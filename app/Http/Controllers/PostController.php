@@ -37,12 +37,14 @@ class PostController extends Controller
             $this->authorize('create', Post::class);
             $this->validate($request, [
                 'title' => 'required|max:255',
-                'content' => 'required'
+                'content' => 'required',
+                'image' => 'required | url'
             ]);
 
             $post = new Post;
             $post->title = $request->input('title');
             $post->content = $request->input('content');
+            $post->image = $request->input('image');
             $post->save();
 
             return response()->json(['message' => 'Post created successfully']);
